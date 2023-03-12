@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'textfield.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -15,27 +17,24 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromARGB(255, 131, 253, 239)),
+      theme:
+          ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 35, 40, 100)),
       home: Scaffold(
           appBar: AppBar(
             title: Text("TagOP"),
             centerTitle: true,
-            backgroundColor: Color.fromARGB(255, 61, 145, 255),
+            backgroundColor: Color.fromARGB(255, 46, 103, 177),
             shadowColor: Color.fromARGB(0, 0, 0, 0),
           ),
-          body: Row(
-            children: [
-              Text("Patient Name -"),
-              SizedBox(
-                width: 250,
-                child: TextField(
-                    decoration: InputDecoration(
-                        hintText: "Enter Patient Name",
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 110, 238, 255))),
-              )
-            ],
+          body: Container(
+            margin: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                InputField("Patient Name"),
+                SizedBox(height: 10),
+                InputField("Patient Id"),
+              ],
+            ),
           )),
     );
   }
