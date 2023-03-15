@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tagop/widgets/droppedfilewidget.dart';
 import 'package:tagop/widgets/textfield.dart';
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
@@ -49,24 +50,28 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                           SizedBox(width: 10),
+                          DroppedFileWidget(file: file),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Align(
                             alignment: Alignment.topCenter,
                             child: Container(
-                              width: 100,
-                              color: Color.fromARGB(213, 83, 178, 255),
-                              child: DropdownButton(
-                                  value: dropdownvalue,
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                        value: items, child: Text(items));
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownvalue = newValue!;
-                                    });
-                                  }),
-                            ),
-                          ),
+                                width: 100,
+                                child: Container(
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed:
+                                        () {}, // TODO addUpload Functionality //
+                                    child: Text("Upload"),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(213, 83, 178, 255),
+                                        textStyle:
+                                            TextStyle(color: Colors.white)),
+                                  ),
+                                )),
+                          )
                         ]),
                       ),
                       Container(
