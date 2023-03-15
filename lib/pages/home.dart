@@ -4,6 +4,8 @@ import 'package:tagop/widgets/textfield.dart';
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
 import 'tags.dart';
+import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,6 +18,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String dropdownvalue = "Item1";
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
+
+  Future<void> _Sign() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn.standard(scopes:
+      [drive.DriveApi.driveScope]);
+      await _googleSignIn.signIn();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               InputField("Age -", "Patient Age "),
                               SizedBox(height: 5),
                               InputField("Id -", "Patient Id"),
+                              TextButton(
+              onPressed: _Sign,
+              child: Text("Sign In"),
+            ),
                             ],
                           ),
                           SizedBox(width: 10),
