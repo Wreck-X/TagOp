@@ -4,20 +4,6 @@ import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
 import 'tags.dart';
 
-class MyApp extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Color.fromARGB(169, 84, 154, 235),
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 89, 219, 228)),
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 

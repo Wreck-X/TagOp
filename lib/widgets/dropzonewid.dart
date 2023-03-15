@@ -77,7 +77,6 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
 
     print('Name : $name');
     print('Mime: $mime');
-
     print('Size : ${byte / (1024 * 1024)}');
     print('URL: $url');
 
