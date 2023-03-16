@@ -3,9 +3,8 @@ import 'package:tagop/widgets/droppedfilewidget.dart';
 import 'package:tagop/widgets/textfield.dart';
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
-import 'tags.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'tags.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -19,13 +18,26 @@ class _MyHomePageState extends State<MyHomePage> {
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
 
+  //* Sign In Function
   Future<void> _Sign() async {
-    GoogleSignIn _googleSignIn = GoogleSignIn.standard(scopes:
-      [drive.DriveApi.driveScope]);
-      await _googleSignIn.signIn();
-  }
+    
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [ // TODO Add Drive scopes
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+ 
+    try {
+      await googleSignIn.signIn();
+    } 
+    catch (error) {
+      print(error);
+    }
 
-  @override
+  }
+  
+  @override  
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -50,16 +62,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Row(children: [
                           Column(
                             children: [
+
                               InputField("Name -", "Patient Name"),
                               SizedBox(height: 5),
                               InputField("Age -", "Patient Age "),
                               SizedBox(height: 5),
                               InputField("Id -", "Patient Id"),
                               TextButton(
-              onPressed: _Sign,
-              child: Text("Sign In"),
-            ),
+                                onPressed:_Sign,
+                                child: const Text("Sign In"),
+                              ),
                             ],
+
                           ),
                           SizedBox(width: 10),
                           DroppedFileWidget(file: file),
@@ -74,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 50,
                                   child: ElevatedButton(
                                     onPressed:
-                                        () {}, // TODO addUpload Functionality //
+                                        () {}, // TODO Add upload functionality
                                     child: Text("Upload"),
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
