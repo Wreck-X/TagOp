@@ -39,6 +39,8 @@ dependencies:
   flutter_dropzone: ^3.0.5
   dotted_border: ^2.0.0+3
   google_sign_in: ^6.0.2
+  googleapis: ^10.1.0
+  googleapis_auth: ^1.4.0
 
 dev_dependencies:
   flutter_test:
