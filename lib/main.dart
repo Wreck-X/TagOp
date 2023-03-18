@@ -6,6 +6,7 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
 import 'widgets/textfield.dart';
 import 'pages/home.dart';
+import 'pages/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 89, 219, 228)),
       ),
-      home: const MyHomePage(),
+      home: MyLoginPage(),
     );
   }
 }

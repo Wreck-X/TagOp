@@ -20,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //* Sign In Function
   Future<void> _Sign() async {
+
     
     GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: [ // TODO Add Drive scopes
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print(error);
     }
 
+
   }
   
   @override  
@@ -43,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             "TagOP",
             style: TextStyle(color: Colors.white),
@@ -69,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               SizedBox(height: 5),
                               InputField("Id -", "Patient Id"),
                               TextButton(
+
                                 onPressed:_Sign,
                                 child: const Text("Sign In"),
                               ),
