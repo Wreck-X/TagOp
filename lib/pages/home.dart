@@ -4,13 +4,28 @@ import 'package:tagop/widgets/textfield.dart';
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:googleapis_auth/googleapis_auth.dart' as auth;
 import 'tags.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class GoogleAuthClient extends http.BaseClient {
+  final Map<String, String> _headers;
+
+  final http.Client _client = new http.Client();
+
+  GoogleAuthClient(this._headers);
+
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    return _client.send(request..headers.addAll(_headers));
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -20,26 +35,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //* Sign In Function
   Future<void> _Sign() async {
-
-    
     GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [ // TODO Add Drive scopes
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
+      scopes: [
+        drive.DriveApi.driveFileScope,
       ],
     );
- 
+
     try {
-      await googleSignIn.signIn();
-    } 
-    catch (error) {
+      final account = await googleSignIn.signIn();
+
+      if (account == null) {
+        return;
+      }
+
+      final authHeaders = await account.authHeaders;
+      final authenticateClient = GoogleAuthClient(authHeaders);
+      final driveApi = drive.DriveApi(authenticateClient);
+
+      final Stream<List<int>> mediaStream =
+          Future.value([104, 105]).asStream().asBroadcastStream();
+
+      var media = new drive.Media(mediaStream, 2);
+      var driveFile = new drive.File();
+      driveFile.name = "hello_world.jpg";
+
+      final result = await driveApi.files.create(driveFile, uploadMedia: media);
+
+      print("Upload result: $result");
+    } catch (error) {
       print(error);
     }
-
-
   }
-  
-  @override  
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -65,19 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Row(children: [
                           Column(
                             children: [
-
                               InputField("Name -", "Patient Name"),
                               SizedBox(height: 5),
                               InputField("Age -", "Patient Age "),
                               SizedBox(height: 5),
                               InputField("Id -", "Patient Id"),
                               TextButton(
-
-                                onPressed:_Sign,
+                                onPressed: _Sign,
                                 child: const Text("Sign In"),
                               ),
                             ],
-
                           ),
                           SizedBox(width: 10),
                           DroppedFileWidget(file: file),
