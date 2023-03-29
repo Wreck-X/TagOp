@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:tagop/widgets/droppedfilewidget.dart';
-import 'package:tagop/widgets/textfield.dart';
-import 'package:tagop/models/file_Datamodel.dart';
-import 'package:tagop/widgets/dropzonewid.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:googleapis_auth/googleapis_auth.dart' as auth;
 import 'tags.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tagop/widgets/textfield.dart';
+import 'package:tagop/widgets/dropzonewid.dart';
+import 'package:tagop/models/file_Datamodel.dart';
+import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tagop/widgets/droppedfilewidget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,25 +15,31 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+//* Authentication
 class GoogleAuthClient extends http.BaseClient {
+  
   final Map<String, String> _headers;
 
-  final http.Client _client = new http.Client();
+  final http.Client _client = http.Client();
 
   GoogleAuthClient(this._headers);
-
+  
+  @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     return _client.send(request..headers.addAll(_headers));
   }
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
   String dropdownvalue = "Item1";
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
 
   //* Sign In Function
-  Future<void> _Sign() async {
+  Future<void> signIn() async {
+    
     GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: [
         drive.DriveApi.driveFileScope,
@@ -44,27 +49,45 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final account = await googleSignIn.signIn();
 
+      // Canceled sign in:
       if (account == null) {
         return;
       }
 
+      // God knows how authentication works
       final authHeaders = await account.authHeaders;
       final authenticateClient = GoogleAuthClient(authHeaders);
       final driveApi = drive.DriveApi(authenticateClient);
 
-      final Stream<List<int>> mediaStream =
-          Future.value([104, 105]).asStream().asBroadcastStream();
+      // Something something upload url something get image from url
+      // except it does not work
+      final file = drive.File()
+        ..name = "Test.jpg"
+        ..parents = ['1vIIBPSuE-87hobOBvtzr9kbFmsNkVawW'];
+      
+      final fileUrl = "http://localhost:40613/de2462a6-256b-4d90-a344-f3e0771683e6";
+      //! Error here
+      final response = await http.get(Uri.parse(fileUrl));
+      
+      print("sisds");
+      
+      final stream = http.ByteStream.fromBytes(response.bodyBytes);
+      final media = drive.Media(stream, response.contentLength);
 
-      var media = new drive.Media(mediaStream, 2);
-      var driveFile = new drive.File();
-      driveFile.name = "hello_world.jpg";
+      final uploadedFile = await driveApi.files.create(file, uploadMedia: media);
 
-      final result = await driveApi.files.create(driveFile, uploadMedia: media);
-
-      print("Upload result: $result");
+      if (uploadedFile != null) {
+        print('File uploaded successfully!');
+      } else {
+        print('Error uploading file');
+      }
+    
     } catch (error) {
+      
       print(error);
+    
     }
+  
   }
 
   @override
@@ -99,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               SizedBox(height: 5),
                               InputField("Id -", "Patient Id"),
                               TextButton(
-                                onPressed: _Sign,
+                                onPressed: signIn,
                                 child: const Text("Sign In"),
                               ),
                             ],
