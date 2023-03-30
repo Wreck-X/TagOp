@@ -1,8 +1,9 @@
+import 'tags.dart';
 import 'package:flutter/material.dart';
-import 'package:tagop/widgets/droppedfilewidget.dart';
 import 'package:tagop/widgets/textfield.dart';
-import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/dropzonewid.dart';
+import 'package:tagop/models/file_Datamodel.dart';
+import 'package:tagop/widgets/droppedfilewidget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'search.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
@@ -10,29 +11,21 @@ import 'package:googleapis_auth/googleapis_auth.dart' as auth;
 import 'tags.dart';
 import 'package:http/http.dart' as http;
 
+
 class MyHomePage extends StatefulWidget {
+  
   const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+
 }
-
-class GoogleAuthClient extends http.BaseClient {
-  final Map<String, String> _headers;
-
-  final http.Client _client = new http.Client();
-
-  GoogleAuthClient(this._headers);
-
-  Future<http.StreamedResponse> send(http.BaseRequest request) {
-    return _client.send(request..headers.addAll(_headers));
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
+  
   String dropdownvalue = "Item1";
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
+
 
   //* Sign In Function
   Future<void> _Sign() async {
@@ -170,12 +163,59 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ],
                         ),
-                      )
-                    ],
+                        const SizedBox(width: 10),
+                        DroppedFileWidget(file: file),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                                  width: 100,
+                                  child: Container(
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      onPressed:
+                                        () {}, // TODO: Add upload functionality
+                                      style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                      const Color.fromARGB(213, 83, 178, 255),
+                                      textStyle:
+                                        const TextStyle(color: Colors.white)),
+                                      child: const Text("Upload"),
+                                    ),
+                                  ),
+                                ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const TagsPage()
-              ],
-            )));
+
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: height * 0.7,
+                          width: width * 0.5,
+                          child: DropZoneWidget(
+                            onDroppedFile: (file) =>
+                            setState(() => this.file = file)
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const TagsPage()
+          ],
+        ),
+      ),
+    );
+
   }
+  
 }
