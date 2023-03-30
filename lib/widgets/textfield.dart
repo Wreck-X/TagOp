@@ -19,7 +19,11 @@ class InputField extends StatelessWidget {
               decoration: InputDecoration(
                   hintText: entry,
                   filled: true,
-                  fillColor: Color.fromARGB(255, 110, 168, 255))),
+                  fillColor: Colors.blue.shade100,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ))),
         ),
       ],
     );

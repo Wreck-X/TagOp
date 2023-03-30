@@ -1,9 +1,12 @@
+
+import 'package:tagop/models/file_Datamodel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+
 
 //* Authentication
 class GoogleAuthClient extends http.BaseClient {
@@ -19,6 +22,7 @@ class GoogleAuthClient extends http.BaseClient {
   }
 
 }
+
 
 class DropZoneWidget extends StatefulWidget {
   
@@ -90,11 +94,14 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
   Future uploadedFile(dynamic event) async {
     
     final name = event.name;
+    final data = await controller.getFileData(event);
     final mime = await controller.getFileMIME(event);
     final byte = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
 
+
     //* DEBUG
+
     print('Name : $name');
     print('Mime: $mime');
     print('Size : ${byte / (1024 * 1024)}');
