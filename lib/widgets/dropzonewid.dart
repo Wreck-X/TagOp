@@ -1,8 +1,6 @@
 import 'package:tagop/models/file_Datamodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class DropZoneWidget extends StatefulWidget {
   final ValueChanged<File_Data_Model> onDroppedFile;
@@ -71,10 +69,10 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
 
   Future UploadedFile(dynamic event) async {
     final name = event.name;
+    final data = await controller.getFileData(event);
     final mime = await controller.getFileMIME(event);
     final byte = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
-
     print('Name : $name');
     print('Mime: $mime');
     print('Size : ${byte / (1024 * 1024)}');

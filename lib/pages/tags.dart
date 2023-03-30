@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:tagop/widgets/buttons.dart';
 
 class TagsPage extends StatefulWidget {
@@ -32,6 +31,7 @@ class _TagsPageState extends State<TagsPage> {
       child: Row(children: [
         SafeArea(
             child: NavigationRail(
+          backgroundColor: Colors.blue.shade100,
           extended: height * width >= 900,
           destinations: [
             NavigationRailDestination(

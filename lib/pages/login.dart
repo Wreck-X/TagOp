@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tagop/pages/home.dart';
-import 'package:tagop/widgets/textfield.dart';
 
 class MyLoginPage extends StatefulWidget {
   const MyLoginPage({super.key});
@@ -16,24 +15,24 @@ class _MyLoginPageState extends State<MyLoginPage> {
       body: Align(
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
+          const Text(
             "LOGIN",
             style: TextStyle(fontSize: 50),
           ),
           Column(
             children: [
-              Text("Username"),
+              const Text("Username"),
               Container(
                   width: 200,
-                  child: SizedBox(
+                  child: const SizedBox(
                     child: TextField(
                         decoration: InputDecoration(
                             filled: true, fillColor: Colors.white)),
                   )),
-              Text("Password"),
+              const Text("Password"),
               Container(
                   width: 200,
-                  child: SizedBox(
+                  child: const SizedBox(
                     child: TextField(
                         decoration: InputDecoration(
                             filled: true, fillColor: Colors.white)),
@@ -46,9 +45,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
               child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MyHomePage()));
+                        MaterialPageRoute(builder: (_) => const MyHomePage()));
                   },
-                  child: Text("Login")))
+                  child: const Text("Login")))
         ]),
       ),
     );
