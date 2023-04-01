@@ -1,16 +1,10 @@
-import 'tags.dart';
-import 'package:flutter/material.dart';
-import 'package:tagop/widgets/textfield.dart';
-import 'package:tagop/widgets/dropzonewid.dart';
-import 'package:tagop/models/file_Datamodel.dart';
 import 'package:tagop/widgets/droppedfilewidget.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tagop/models/file_Datamodel.dart';
+import 'package:tagop/widgets/dropzonewid.dart';
+import 'package:tagop/widgets/textfield.dart';
+import 'package:flutter/material.dart';
 import 'search.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:googleapis_auth/googleapis_auth.dart' as auth;
 import 'tags.dart';
-import 'package:http/http.dart' as http;
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -23,43 +17,43 @@ class _MyHomePageState extends State<MyHomePage> {
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
 
-  //* Sign In Function
-  Future<void> _Sign() async {
-    GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [
-        // TODO Add Drive scopes
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-        drive.DriveApi.driveFileScope,
-      ],
-    );
+  // //* Sign In Function
+  // Future<void> _Sign() async {
+  //   GoogleSignIn googleSignIn = GoogleSignIn(
+  //     scopes: [
+  //       // TODO Add Drive scopes
+  //       'email',
+  //       'https://www.googleapis.com/auth/contacts.readonly',
+  //       drive.DriveApi.driveFileScope,
+  //     ],
+  //   );
 
-    try {
-      await googleSignIn.signIn();
-      final account = await googleSignIn.signIn();
+  //   try {
+  //     await googleSignIn.signIn();
+  //     final account = await googleSignIn.signIn();
 
-      if (account == null) {
-        return;
-      }
+  //     if (account == null) {
+  //       return;
+  //     }
 
-      final authHeaders = await account.authHeaders;
-      final authenticateClient = GoogleAuthClient(authHeaders);
-      final driveApi = drive.DriveApi(authenticateClient);
+  //     final authHeaders = await account.authHeaders;
+  //     final authenticateClient = GoogleAuthClient(authHeaders);
+  //     final driveApi = drive.DriveApi(authenticateClient);
 
-      final Stream<List<int>> mediaStream =
-          Future.value([104, 105]).asStream().asBroadcastStream();
+  //     final Stream<List<int>> mediaStream =
+  //         Future.value([104, 105]).asStream().asBroadcastStream();
 
-      var media = new drive.Media(mediaStream, 2);
-      var driveFile = new drive.File();
-      driveFile.name = "hello_world.jpg";
+  //     var media = new drive.Media(mediaStream, 2);
+  //     var driveFile = new drive.File();
+  //     driveFile.name = "hello_world.jpg";
 
-      final result = await driveApi.files.create(driveFile, uploadMedia: media);
+  //     final result = await driveApi.files.create(driveFile, uploadMedia: media);
 
-      print("Upload result: $result");
-    } catch (error) {
-      print(error);
-    }
-  }
+  //     print("Upload result: $result");
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           const SizedBox(height: 5),
                           InputField("Id -", "Patient Id"),
                           TextButton(
-                            onPressed: _Sign,
+                            onPressed: () {},
                             child: const Text("Sign In"),
                           ),
                         ],
@@ -130,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => SearchPage()));
+                                        builder: (_) => const SearchPage()));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:

@@ -1,11 +1,9 @@
-
-import 'package:tagop/models/file_Datamodel.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:tagop/models/file_Datamodel.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tagop/models/file_Datamodel.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 
 
 //* Authentication
@@ -22,7 +20,6 @@ class GoogleAuthClient extends http.BaseClient {
   }
 
 }
-
 
 class DropZoneWidget extends StatefulWidget {
   
@@ -81,7 +78,8 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           backgroundColor: highlight? Colors.green.shade300:Colors.blue.shade300,
-                          shape: const RoundedRectangleBorder()),
+                          shape: const RoundedRectangleBorder()
+                        ),
                       )
                     ],
                   ),
