@@ -44,6 +44,8 @@ dependencies:
   path_provider: ^2.0.14
   amplify_flutter: ^1.0.0-next.0
   amplify_auth_cognito: ^1.0.0-next.0
+  flutter_svg: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,9 +69,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - images/rectangle1.svg
+    - images/rectangle3.svg
+    - images/Image1.png
+    - images/Rectangle2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -82,10 +86,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: ReadexPro
+      fonts:
+        - asset: fonts/ReadexPro-Regular.ttf
+          weight: 400
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

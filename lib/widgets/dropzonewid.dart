@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:tagop/models/file_Datamodel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -107,27 +106,6 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
     // request.files.add(httpImage);
     // final response = await request.send();
     // print(response);
-    Uint8List imageInUnit8List = data;
-    final tempDir = await getTemporaryDirectory();
-    File file = await File('${tempDir.path}/image.png').create();
-    file.writeAsBytesSync(imageInUnit8List);
-    final dio = Dio();
-
-    final formData = FormData.fromMap({
-      'key': 'image.png',
-      'file': await MultipartFile.fromFile(file.path),
-      'Content-Type': mime,
-    });
-    final response = await dio.post(
-      'https://magi.s3.amazonaws.com/',
-      data: formData,
-      options: Options(
-        headers: {'x-amz-acl': 'public-read'},
-      ),
-    );
-    return response.statusCode == 200
-        ? 'https://medicalimagesbucket.s3.amazonaws.com/image.png'
-        : throw Exception('Failed to upload file to S3');
   }
 
   Widget buildDecoration({required Widget child}) {
