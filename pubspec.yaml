@@ -45,6 +45,7 @@ dependencies:
   amplify_flutter: ^1.0.0-next.0
   amplify_auth_cognito: ^1.0.0-next.0
   flutter_svg: ^2.0.4
+  amplify_storage_s3_dart: ^0.1.7+1
 
 dev_dependencies:
   flutter_test:
@@ -69,11 +70,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - images/rectangle1.svg
-    - images/rectangle3.svg
-    - images/Image1.png
-    - images/Rectangle2.png
+  # assets:
+  #   - images/rectangle1.svg
+  #   - images/rectangle3.svg
+  #   - images/Image1.png
+  #   - images/Rectangle2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

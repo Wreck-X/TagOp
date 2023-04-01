@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
+import 'amplifyconfiguration.dart';
 
 void main() {
   runApp(MyApp());

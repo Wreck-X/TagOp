@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tagop-dev-212154-authRole",
+      "UnauthRoleArn": "arn:aws:iam::408267641224:role/amplify-tagop-dev-212154-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::408267641224:role/amplify-tagop-dev-212154-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-tagop-dev-212154-deployment",
+      "UnauthRoleName": "amplify-tagop-dev-212154-unauthRole",
+      "StackName": "amplify-tagop-dev-212154",
+      "StackId": "arn:aws:cloudformation:ap-south-1:408267641224:stack/amplify-tagop-dev-212154/25bd2f10-d0a5-11ed-8155-0a1041e41e28",
+      "AmplifyAppId": "d24rjwzofjwxva"
+    },
+    "categories": {
+      "auth": {
+        "tagop4240b5aa": {}
+      },
+      "storage": {
+        "medicalbucketimaging": {}
+      }
+    }
+  }
+}

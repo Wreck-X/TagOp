@@ -9,13 +9,16 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:aws_common/web.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 //* Authentication
 
 class DropZoneWidget extends StatefulWidget {
   final ValueChanged<File_Data_Model> onDroppedFile;
   const DropZoneWidget({Key? key, required this.onDroppedFile})
       : super(key: key);
-
   @override
   _DropZoneWidgetState createState() => _DropZoneWidgetState();
 }
@@ -82,7 +85,7 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
     final data = await controller.getFileData(event);
     final mime = await controller.getFileMIME(event);
     final byte = await controller.getFileSize(event);
-    final url = await controller.createFileUrl(event);
+    var url = await controller.createFileUrl(event);
     print('Name : $name');
     print('Mime: $mime');
     print('Size : ${byte / (1024 * 1024)}');
@@ -95,6 +98,34 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
     setState(() {
       highlight = false;
     });
+
+    // var file = File.fromRawPath(data);
+    // final awsFile = AWSFilePlatform.fromFile(file);
+    // try {
+    //   final uploadResult = await Amplify.Storage.uploadFile(
+    //     localFile: awsFile,
+    //     key: 'upload/file.png',
+    //   ).result;
+    //   safePrint('Uploaded file: ${uploadResult.uploadedItem.key}');
+    // } on StorageException catch (e) {
+    //   safePrint(e.message);
+    //   rethrow;
+    //
+
+    var resulturl = url.substring(5);
+    final response = await http.get(Uri.parse(url));
+    final stream = http.ByteStream.fromBytes(response.bodyBytes);
+    AWSFile file = AWSFile.fromStream(stream, size: byte);
+    try {
+      final uploadResult = await Amplify.Storage.uploadFile(
+        localFile: file,
+        key: 'upload/file.png',
+      ).result;
+      safePrint('Uploaded file: ${uploadResult.uploadedItem.key}');
+    } on StorageException catch (e) {
+      safePrint(e.message);
+      rethrow;
+    }
 
     // Dio dio = new Dio();
     // var bucketName = 'medicalimagesbucket';
