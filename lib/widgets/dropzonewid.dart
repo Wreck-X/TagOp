@@ -78,7 +78,8 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           backgroundColor: highlight? Colors.green.shade300:Colors.blue.shade300,
-                          shape: const RoundedRectangleBorder()),
+                          shape: const RoundedRectangleBorder()
+                        ),
                       )
                     ],
                   ),
