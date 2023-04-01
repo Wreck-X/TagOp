@@ -1,14 +1,18 @@
+import 'dart:typed_data';
+
 class File_Data_Model {
   final String name;
   final String mime;
   final int bytes;
   final String url;
+  final Uint8List data;
 
   File_Data_Model(
       {required this.name,
       required this.mime,
       required this.bytes,
-      required this.url});
+      required this.url,
+      required this.data});
 
   String get size {
     final kb = bytes / 1024;

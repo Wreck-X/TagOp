@@ -23,44 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
   File_Data_Model? file;
   var items = ["Item1", "Item2", "Item3"];
 
-  //* Sign In Function
-  Future<void> _Sign() async {
-    GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [
-        // TODO Add Drive scopes
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-        drive.DriveApi.driveFileScope,
-      ],
-    );
-
-    try {
-      await googleSignIn.signIn();
-      final account = await googleSignIn.signIn();
-
-      if (account == null) {
-        return;
-      }
-
-      final authHeaders = await account.authHeaders;
-      final authenticateClient = GoogleAuthClient(authHeaders);
-      final driveApi = drive.DriveApi(authenticateClient);
-
-      final Stream<List<int>> mediaStream =
-          Future.value([104, 105]).asStream().asBroadcastStream();
-
-      var media = new drive.Media(mediaStream, 2);
-      var driveFile = new drive.File();
-      driveFile.name = "hello_world.jpg";
-
-      final result = await driveApi.files.create(driveFile, uploadMedia: media);
-
-      print("Upload result: $result");
-    } catch (error) {
-      print(error);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -93,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           const SizedBox(height: 5),
                           InputField("Id -", "Patient Id"),
                           TextButton(
-                            onPressed: _Sign,
+                            onPressed: () {},
                             child: const Text("Sign In"),
                           ),
                         ],

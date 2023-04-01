@@ -15,10 +15,13 @@ class _SearchPageState extends State<SearchPage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Row(children: [
-        SizedBox(
+        Container(
           height: height * 0.9,
           width: width * 0.5,
-          child: Placeholder(),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://drive.google.com/uc?export=view&id=1NeBPd5wLS2xRyVLfNYzKGTghfEv9J7lb"))), //Image url for displaying images (reformat link from gdrive in this format | https://drive.google.com/uc?export=view&id= <fileid>)
         ),
         SizedBox(
           height: height * 0.9,

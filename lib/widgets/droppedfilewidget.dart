@@ -18,13 +18,11 @@ class DroppedFileWidget extends StatelessWidget {
   Widget buildImage(BuildContext context) {
     if (file == null) return buildEmptyFile('No Selected File');
 
-    print(file!.url);
-
     return Column(
       children: [
         if (file != null) buildFileDetail(file),
-        Image.network(
-          file!.url,
+        Image.memory(
+          file!.data,
           width: 120,
           height: 120,
           fit: BoxFit.cover,

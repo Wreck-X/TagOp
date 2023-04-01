@@ -20,8 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
-
+  sdk: ">=2.17.0 <3.0.0"
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -37,12 +36,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_dropzone: ^3.0.5
-  dotted_border: ^2.0.0+3
   google_sign_in: ^6.0.2
   googleapis: ^10.1.0
   googleapis_auth: ^1.4.0
   http: ^0.13.5
-
+  dio: ^5.1.1
+  path_provider: ^2.0.14
+  amplify_flutter: ^1.0.0-next.0
+  amplify_auth_cognito: ^1.0.0-next.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
